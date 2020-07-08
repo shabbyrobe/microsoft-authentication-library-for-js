@@ -9,9 +9,14 @@ import { NetworkManager, NetworkResponse } from "../network/NetworkManager";
 import { ICrypto } from "../crypto/ICrypto";
 import { Authority } from "../authority/Authority";
 import { Logger } from "../logger/Logger";
+<<<<<<< HEAD
 import { AADServerParamKeys, Constants, HeaderNames, HeaderValues } from "../utils/Constants";
 import { NetworkResponse } from "../network/NetworkManager";
 import { ServerAuthorizationTokenResponse } from "../response/ServerAuthorizationTokenResponse";
+=======
+import { AADServerParamKeys, Constants, HeaderNames } from "../utils/Constants";
+import { ServerAuthorizationTokenResponse } from "../server/ServerAuthorizationTokenResponse";
+>>>>>>> fb76454f... Fix JSON.parse and add ServerError
 import { TrustedAuthority } from "../authority/TrustedAuthority";
 import { CacheManager } from "../cache/CacheManager";
 import { ServerTelemetryManager } from "../telemetry/server/ServerTelemetryManager";
@@ -85,7 +90,7 @@ export abstract class BaseClient {
     protected createDefaultTokenRequestHeaders(): Map<string, string> {
         const headers = this.createDefaultLibraryHeaders();
         headers.set(HeaderNames.CONTENT_TYPE, Constants.URL_FORM_CONTENT_TYPE);
-        headers.set(HeaderNames.X_MS_LIB_CAPABILITY, HeaderValues.X_MS_LIB_CAPABILITY_VALUE);
+        headers.set(HeaderNames.X_MS_LIB_CAPABILITY, HeaderNames.X_MS_LIB_CAPABILITY_VALUE);
 
         if (this.serverTelemetryManager) {
             headers.set(HeaderNames.X_CLIENT_CURR_TELEM, this.serverTelemetryManager.generateCurrentRequestHeaderValue());
@@ -106,7 +111,7 @@ export abstract class BaseClient {
         headers.set(`${AADServerParamKeys.X_CLIENT_VER}`, this.config.libraryInfo.version);
         headers.set(`${AADServerParamKeys.X_CLIENT_OS}`, this.config.libraryInfo.os);
         headers.set(`${AADServerParamKeys.X_CLIENT_CPU}`, this.config.libraryInfo.cpu);
-        headers.set(HeaderNames.X_MS_LIB_CAPABILITY, HeaderValues.X_MS_LIB_CAPABILITY_VALUE);
+        headers.set(HeaderNames.X_MS_LIB_CAPABILITY, HeaderNames.X_MS_LIB_CAPABILITY_VALUE);
 
         return headers;
     }
