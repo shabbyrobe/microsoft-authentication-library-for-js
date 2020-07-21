@@ -31,7 +31,7 @@ import {
     Logger,
     ServerTelemetryManager,
     ServerTelemetryRequest,
-    ServerAuthorizationCodeResponse
+    ServerAuthorizationCodeResponse,
     ThrottlingUtils
 } from "@azure/msal-common";
 import { buildConfiguration, Configuration } from "../config/Configuration";
@@ -223,7 +223,7 @@ export class PublicClientApplication implements IPublicClientApplication {
             const currentAuthority = this.browserStorage.getCachedAuthority();
             const authClient = await this.createAuthCodeClient(serverTelemetryManager, currentAuthority);
             const interactionHandler = new RedirectHandler(authClient, this.browserStorage);
-            return await interactionHandler.handleCodeResponse(responseHash, this.browserCrypto);
+            return await interactionHandler.handleCodeResponse(responseHash, this.browserCrypto, this.config.auth.clientId);
         } catch (e) {
             serverTelemetryManager.cacheFailedRequest(e);
             this.browserStorage.cleanRequest();
@@ -325,7 +325,7 @@ export class PublicClientApplication implements IPublicClientApplication {
 
             // Monitor the window for the hash. Return the string value and close the popup when the hash is received. Default timeout is 60 seconds.
             const hash = await interactionHandler.monitorPopupForHash(popupWindow, this.config.system.windowHashTimeout);
-            
+
             // Remove throttle if it exists
             ThrottlingUtils.removeThrottle(this.browserStorage, this.config.auth.clientId, authCodeRequest.authority, authCodeRequest.scopes);
 
