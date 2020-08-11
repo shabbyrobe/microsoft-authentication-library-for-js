@@ -43,7 +43,7 @@ export const Constants = {
 export enum HeaderNames {
     CONTENT_TYPE = "Content-Type",
     X_CLIENT_CURR_TELEM = "x-client-current-telemetry",
-    X_CLIENT_LAST_TELEM = "x-client-last-telemetry"
+    X_CLIENT_LAST_TELEM = "x-client-last-telemetry",
     RETRY_AFTER = "Retry-After",
     X_MS_LIB_CAPABILITY = "x-ms-lib-capability",
     X_MS_LIB_CAPABILITY_VALUE = "retry-after, h429"
